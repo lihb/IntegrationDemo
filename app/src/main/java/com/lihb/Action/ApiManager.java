@@ -1,4 +1,4 @@
-package com.lihb.Action;
+package com.lihb.action;
 
 import com.lihb.model.Contributor;
 

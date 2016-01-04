@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.facebook.stetho.Stetho;
-import com.lihb.Action.SingleOkHttpClient;
+import com.lihb.action.SingleOkHttpClient;
 
 import java.io.File;
 import java.io.InputStream;

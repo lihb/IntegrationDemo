@@ -19,7 +19,7 @@
         android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@android:style/Widget.ProgressBar.Small"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_centerInParent="true"
         />
 

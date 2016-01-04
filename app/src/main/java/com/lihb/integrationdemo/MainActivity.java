@@ -9,8 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.lihb.Action.ApiManager;
-import com.lihb.Action.ServiceGenerator;
+import com.lihb.action.ApiManager;
+import com.lihb.action.ServiceGenerator;
 import com.lihb.adapter.ContributorAdapter;
 import com.lihb.model.Contributor;
 
@@ -20,6 +20,7 @@ import java.util.List;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -50,15 +51,15 @@ public class MainActivity extends AppCompatActivity {
 
         ServiceGenerator.createService(ApiManager.class)
                 .contributors("square", "retrofit")
-                .flatMap(new Func1<List<Contributor>, Observable<?>>() {
+                .flatMap(new Func1<List<Contributor>, Observable<Contributor>>() {
                     @Override
-                    public Observable<?> call(List<Contributor> contributors) {
+                    public Observable<Contributor> call(List<Contributor> contributors) {
                         return Observable.from(contributors);
                     }
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Object>() {
+                .subscribe(new Subscriber<Contributor>() {
                     @Override
                     public void onCompleted() {
                         Log.i("MainActivity", "onCompleted");
@@ -68,14 +69,15 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         Log.i("MainActivity", "onError");
+                        e.printStackTrace();
                     }
 
                     @Override
-                    public void onNext(Object o) {
+                    public void onNext(Contributor contributor) {
                         mListView.setVisibility(View.VISIBLE);
                         mProgressBar.setVisibility(View.GONE);
-                        Log.i("MainActivity", ((Contributor) o).login + " : " + ((Contributor) o).avatar_url);
-                        mData.add((Contributor) o);
+                        Log.i("MainActivity", contributor.login + " : " + contributor.avatar_url);
+                        mData.add(contributor);
                         mAdapter.notifyDataSetChanged();
 
                     }

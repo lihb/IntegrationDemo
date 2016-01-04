@@ -53,7 +53,6 @@ public class ContributorAdapter extends BaseAdapter {
 
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.userNameTxt = (TextView) rowView.findViewById(R.id.user_name_txt);
-//            viewHolder.followerTxt = (TextView) rowView.findViewById(R.id.followers_txt);
             viewHolder.userAvatarImg = (ImageView) rowView
                     .findViewById(R.id.user_avatar_img);
             rowView.setTag(viewHolder);
@@ -63,17 +62,16 @@ public class ContributorAdapter extends BaseAdapter {
 
         Glide.with(mContext)
                 .load(mData.get(position).avatar_url)
+                .placeholder(R.mipmap.ic_launcher)
                 .override(200, 200)
                 .into(holder.userAvatarImg);
         holder.userNameTxt.setText(mData.get(position).login);
-//        holder.followerTxt.setText(mData.get(position).login);
 
         return rowView;
     }
 
     class ViewHolder {
         public TextView userNameTxt;
-//        public TextView followerTxt;
         public ImageView userAvatarImg;
     }
 }
